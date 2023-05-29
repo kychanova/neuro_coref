@@ -44,7 +44,7 @@ classes.
 This realisation assumes using CONLL-2012 dataset from 
 Datasets(https://huggingface.co/datasets/conll2012_ontonotesv5).
 If you want to adapt it for your own dataset, you should
-override 'tokenize_document' method for embedder you want to use.
+override 'tokenize_train_data' and 'tokenize_test_data' methods for embedder you want to use.
 This realisation don't use speaker information, so your dataset
 must contain only text and coreference spans.
 ## Model
@@ -52,7 +52,12 @@ The model includes 2 main steps: finding all mentions and clustering
 them. To do that the model consider all spans up to max_span_len
 (hyperparameter), compute mention score for everyone (via 
 feed-forward-neural-network), prune it by this
-score. The spans that was leaved are assumed mentions.
+score. The spans that were left are assumed mentions. Span representation is concatenation 
+of vectors for the first and last tokens of the span and so-called head 
+word vector (attention over all tokens in the span). You can use any word embeddings, e2e-coref model's
+authors: Kenton Lee et al. proposed trainable contextualized embeddings (Fig. 1). The method consists of
+bidirectional LSTM with concatenation of GloVe, Turian, and CharCNN vectors as inputs. But you can use another
+embeddings like ELMO or BERT.
 ![img_1.png](images/img_1.png)
 Figure 1. First step of the model. Source: "End-to-end Neural Coreference Resolution"
 by Kenton Lee et al.
