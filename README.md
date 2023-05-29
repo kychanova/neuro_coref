@@ -71,8 +71,5 @@ Figure 2. Model scheme. Source: "End-to-end Neural Coreference Resolution"
 by Kenton Lee et al.
 
 
-In e2e-coref model contextualized token embedding are computed
-by 2-layer bidirectional LSTM
-
 
 
